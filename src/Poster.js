@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 
 class Poster extends Component {
   handleDelete = () => {
-    fetch('https://bounty-time.herokuapp.com/v1/bounties/' + this.props.bounty._id, {
+    fetch('http://localhost:8000/bounties/' + this.props.bounty._id, {
       method: 'DELETE'
     })
-    .then(response => response.status === 204 ? {} : response.json())
+    .then(response=>{
+      if(response.status !== 204) console.log(response)
+      return {}
+    })
+    // .then(response => response.status === 204 ? {} : response.text())
     .then(() => {
-      console.log('SUCCESSFUL DELETE!')
       this.props.refreshBounties()
     })
     .catch(err => {

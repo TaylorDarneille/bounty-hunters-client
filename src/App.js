@@ -16,8 +16,10 @@ class App extends React.Component {
   }
 
   getBounties = () => {
-    fetch('https://bounty-time.herokuapp.com/v1/bounties')
-    .then(response => response.json())
+    fetch('http://localhost:8000/bounties')
+    .then(response => {
+      return response.json()
+    })
     .then(bounties => {
       console.log(bounties)
       this.setState({ bounties: bounties, current: {} })

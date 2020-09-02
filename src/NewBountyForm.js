@@ -10,7 +10,6 @@ class NewBountyForm extends Component {
       client: current.client || '',
       reward: current.reward || 0,
       ship: current.ship || '',
-      hunters: current.hunters || [],
       captured: current.captured || false,
       id: current._id || ''
     }
@@ -19,7 +18,7 @@ class NewBountyForm extends Component {
   submitForm = (e) => {
     e.preventDefault()
     let whichMethod = this.state.id ? 'PUT' : 'POST'
-    fetch('https://bounty-time.herokuapp.com/v1/bounties/' + this.state.id, {
+    fetch('http://localhost:8000/bounties/' + this.state.id, {
       method: whichMethod,
       body: JSON.stringify(this.state),
       headers: {
@@ -34,7 +33,6 @@ class NewBountyForm extends Component {
         client: '',
         reward: 0,
         ship: '',
-        hunters: [],
         captured: false
       }, () => {
         this.props.refreshBounties()
@@ -46,10 +44,7 @@ class NewBountyForm extends Component {
   }
 
   storeInput = (e) => {
-    if (e.target.name === 'hunters') {
-      this.setState({ hunters: e.target.value.split(',') })
-    }
-    else if (e.target.name === 'captured') {
+    if (e.target.name === 'captured') {
       this.setState({ captured: e.target.checked })
     }
     else {
@@ -81,10 +76,6 @@ class NewBountyForm extends Component {
           <div>
             <label>Ship:</label>
             <input name="ship" onChange={this.storeInput} value={this.state.ship} />
-          </div>
-          <div>
-            <label>Hunters: (Comma-Separated List)</label>
-            <input name="hunters" onChange={this.storeInput} value={this.state.hunters.join(',')} />
           </div>
           <div>
             <label>Captured?</label>

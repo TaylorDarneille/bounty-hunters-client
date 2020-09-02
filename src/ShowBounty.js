@@ -25,7 +25,6 @@ class ShowBounty extends Component {
           <p>
             Last seen on the <strong>{this.props.current.ship || 'unknown'}</strong>
           </p>
-          <p>Hunted By: {(this.props.current.hunters || []).join(', ')}</p>
           <p><strong>STATUS:</strong> {this.props.current.captured ? 'CAUGHT' : 'AT LARGE'}</p>
           <button onClick={this.toggleForm}>{this.state.showForm ? 'Cancel' : 'Edit'}</button>
           {form}
